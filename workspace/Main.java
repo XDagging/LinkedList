@@ -3,6 +3,22 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 public class Main{
+
+// public static void main(String[] args) {
+//   LinkedList list = new LinkedList();
+//   list.addAValue("cat");
+//   list.addAValue("dog");
+//   list.addAValue("ant");
+//   System.out.println(list.showValues());
+//   list.deleteAValue("dog");
+//   System.out.println(list.showValues());
+//   list.clear();
+//   System.out.println(list.showValues());
+
+
+
+// }
+
     public static void main(String[] args)
         throws IOException
     {
