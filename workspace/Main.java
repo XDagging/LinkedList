@@ -31,17 +31,28 @@ public class Main{
         String input= reader.readLine();
         while(!input.equals("exit"))
         {
+          // System.out.println(input.length()>6);
+          // System.out.println(input.substring(0,6));
           if(input.length()>3 && input.substring(0, 3).equals("add"))
           {
             System.out.println(list.addAValue(input.substring(4)).getValue());
-          }
-          else if(input.equals("show"))
+          } else if (input.length()>6&&input.substring(0,7).equals("reverse")) {
+            list.reverse();
+
+
+
+          } else if (input.length() > 7&&input.substring(0, 8).equals("nreverse")) {
+            list.nReverse(Integer.parseInt(input.substring(9)));
+
+
+          } else if(input.equals("show")) 
           {
             System.out.println(list.showValues());
           }
           else if(input.length() > 7 && input.substring(0, 6).equals("remove")){
               System.out.println("removing "+input.substring(7));
-              System.out.println(list.deleteAValue(input.substring(7)).getValue());
+              list.deleteAValue(input.substring(7));
+              // System.out.println();
           }
           else if(input.equals("clear"))
           {

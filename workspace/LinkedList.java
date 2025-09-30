@@ -58,7 +58,9 @@ public class LinkedList {
     
 
     while (current.getNext() != null &&
-         current.getNext().getValue().compareToIgnoreCase(line) < 0) {
+      current.getNext().getValue().compareToIgnoreCase(line) < 0
+      
+    ) {
       current = current.getNext();
     }
 
@@ -66,6 +68,16 @@ public class LinkedList {
       current.setValue(line);
       return current;
     }
+
+
+
+    // if (current.getValue().compareToIgnoreCase(line) == 0) {
+      
+    //   return current;
+    // }
+
+
+
 
     ListNode newNode = new ListNode(line, current.getNext());
     current.setNext(newNode);
@@ -75,24 +87,28 @@ public class LinkedList {
   //precondition: the list has been initialized
   //postcondition: the ListNode containing the appropriate value has been deleted and returned.
   //if the value is not in the list returns null
+
+
+  // I need to fix null;  
   public ListNode deleteAValue(String line)
   {
     ListNode current = head;
-    // List<String> alphabet = List.of("a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z");
-
-    while (current.getValue() != line) {
+    ListNode prev = null;
+    // Special case: head node contains the value
+    if (current != null && line != null && line.equals(current.getValue())) {
+      head = current.getNext();
+      return current;
+    }
+    while (current != null && current.getNext() != null) {
+      if (line != null && line.equals(current.getNext().getValue())) {
+        ListNode toDelete = current.getNext();
+        current.setNext(toDelete.getNext());
+        return toDelete;
+      }
       current = current.getNext();
-    } 
+    }
 
-    
-
-    ListNode temp = current;
-
-    temp.setNext(current.getNext().getNext());
-    current.setNext(temp.getNext());
-
-
-    return null;
+  return null;
   }
 
   //precondition: the list has been initialized
@@ -100,10 +116,10 @@ public class LinkedList {
   public String showValues()
    {
     String allTog = "";
-
-    while (head != null) {
-      allTog += head.getValue() + " ";
-      head = head.getNext(); 
+    ListNode tempHead = head;
+    while (tempHead != null) {
+      allTog += tempHead.getValue() + " ";
+      tempHead = tempHead.getNext(); 
     }
 
 
@@ -116,7 +132,89 @@ public class LinkedList {
   {
     head = new ListNode(null, null);
   }
-}
+
+  public void reverse() {
+    ListNode prev = null;
+    ListNode current = head;
+    while (current != null) {
+      ListNode next = current.getNext();
+      current.setNext(prev);
+      prev = current;
+      current = next;
+    }
+    head = prev;
+  }
+
+  public ListNode reverseX(ListNode x) {
+    ListNode prev = null;
+    ListNode current = x;
+    while (current != null) {
+      ListNode next = current.getNext();
+      current.setNext(prev);
+      prev = current;
+      current = next;
+    }
+
+    return prev;
+  }
+
+
+
+
+  public void nReverse(int reverseAmt) {
+    if (reverseAmt <= 1 || head == null || head.getNext() == null) {
+        return;
+    }
+    ListNode current = head;
+
+    ListNode tailOfPrevChunk = null; 
+
+    while (current != null) {
+        ListNode headOfCurrentChunk = current;
+        ListNode tailOfCurrentChunk = current;
+
+        int count = 1;
+        while (count < reverseAmt && tailOfCurrentChunk.getNext() != null) {
+            tailOfCurrentChunk = tailOfCurrentChunk.getNext();
+            count++;
+        }
+        if (count < reverseAmt) {
+            if (tailOfPrevChunk != null) {
+                tailOfPrevChunk.setNext(current);
+            } else {
+              break;
+            }
+           
+        }
+
+        ListNode headOfNextChunk = tailOfCurrentChunk.getNext();
+
+        tailOfCurrentChunk.setNext(null);
+
+        ListNode reversedChunkHead = reverseX(headOfCurrentChunk);
+
+        if (tailOfPrevChunk == null) {
+            head = reversedChunkHead;
+        } else {
+            tailOfPrevChunk.setNext(reversedChunkHead);
+        }
+        tailOfPrevChunk = headOfCurrentChunk; 
+        current = headOfNextChunk;
+    }
+ }
+  
+
+
+
+
+
+
+
+
+
+  }
+
+
 
 
 // public static void main(String[] args) {
